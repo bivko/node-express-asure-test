@@ -1,0 +1,28 @@
+extends layout
+block content
+    h1= title
+    br
+    form(action="/edittask", method="post")
+        table.table.table-striped.table-bordered
+            tr
+                td Task Name
+                td Category
+                td Date
+                td Complete
+            if (typeof task === "undefined")
+                tr
+                    td
+            else
+               tr
+                   td
+                     input(type="hidden", name="RowKey", value="#{task.RowKey._}")
+                     input.form-control(type="text", name="name", value="#{task.name._}")
+                   td
+                     input.form-control(type="text", name="category", value="#{task.category._}")
+                   - var day   = task.Timestamp._.getDate();
+                   - var month = task.Timestamp._.getMonth() + 1;
+                   - var year  = task.Timestamp._.getFullYear();
+                   td #{month + "/" + day + "/" + year}
+                   td
+                       input(type="checkbox", name="completed", value="#{!task.completed._}", checked=task.completed._)
+        button.btn.btn-default(type="submit") Update task
